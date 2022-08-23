@@ -217,5 +217,35 @@ function deleteTodo(div){
 }
 
 function editTodo(div){
-  div.parentNode.parentNode.parentNode.getAttribute("number");
+  let li = div.parentNode.parentNode.parentNode;
+  let idx = li.getAttribute("number");
+
+  let tagE = li.childNodes[0].childNodes[1];
+  let tagInput = document.createElement('input');
+  tagInput.setAttribute("value", tagE.innerHTML);
+  tagInput.setAttribute("id", "changeTodoInput");
+
+  li.childNodes[0].replaceChild(tagInput, tagE);
+  editListener(idx, tagE, tagInput);
+}
+
+function editListener(idx, tagE, tagInput){
+  let changeIdx = idx;
+  let changeBefore = tagE;
+  let changeAfter = tagInput;
+  let changeTodoInput = document.querySelector("#changeTodoInput");
+  changeTodoInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      let todo = changeTodoInput.value;
+      if(todo === "" || todo === null || todo === undefined) { return; }
+  
+      todoArr[changeIdx][0] = todo;
+      changeBefore.innerHTML = todo;
+      changeAfter.parentNode.replaceChild(changeBefore, changeAfter);
+  
+      localStorage.setItem("todoList", JSON.stringify(todoArr));
+    } else if(e.code === "Space") {
+      e.preventDefault();
+    }
+  });
 }
