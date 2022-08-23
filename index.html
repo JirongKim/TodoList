@@ -16,7 +16,14 @@
     <div class="displayTime"><span id="hours">00</span>:<span id="minutes">00</span></div>
     <div class="greeting">Hello, <span>name</span>!</div>
     <div class="todo">
-      <div>ToDo</div>
+      <div class="todoList hidden">
+        <ul>
+          <li>1</li>
+          <li>2</li>
+        </ul>
+        <input id="todoInput" type="text" placeholder="New Todo">
+      </div>
+      <button onclick="showTodoList()">ToDo</button>
     </div>
     <div class="weather">
       <div id="temperature"><span>0</span>ᵒ</div>

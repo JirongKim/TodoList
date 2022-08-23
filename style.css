@@ -31,6 +31,9 @@ body {
   padding: 30px;
   bottom: 10px;
   right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .weather {
@@ -38,4 +41,9 @@ body {
   padding: 30px;
   top: 5px;
   right: 10px;
+}
+
+.todoList {
+  border: solid 1px black;
+  background-color: #eee;
 }/*# sourceMappingURL=style.css.map */

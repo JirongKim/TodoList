@@ -75,3 +75,30 @@ function getWeather(lat, lon){
 }
 
 getLocationWeather();
+
+function showTodoList(){
+  if(todoList.classList.contains('hidden')){
+    todoList.classList.remove('hidden');
+  }
+  else{
+    todoList.classList.add('hidden');
+  }
+}
+
+let todoInput = document.querySelector("#todoInput");
+let todoList = document.querySelector(".todoList");
+let todoListAppend = document.querySelector(".todoList ul");
+
+todoInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    let todo = todoInput.value;
+    if(todo === "" || todo === null || todo === undefined) { return; }
+
+    let li = document.createElement("li");
+    li.textContent = todo;
+    todoListAppend.appendChild(li);
+    todoInput.value = "";
+  } else if(e.code === "Space") {
+    e.preventDefault();
+  }
+});
