@@ -85,3 +85,19 @@ body{
   color: gray;
   text-decoration: line-through;
 }
+
+.more{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.moreTab {
+  float: right;
+  width: 100px;
+  border-radius: 10px;
+  background-color: rgb(219, 217, 217);
+  border: solid 1px gray;
+  div{
+    padding: 3px;
+  }
+}

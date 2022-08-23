@@ -143,11 +143,26 @@ function newTodoList(todo){
   li.appendChild(group);
 
   let moreBtn = document.createElement("button");
-  moreBtn.setAttribute("onclick", "alert('hi')");
+  moreBtn.setAttribute("onclick", "showMoreTab(this)");
   moreBtn.setAttribute("class", "more hidden");
   moreBtn.textContent = "***";
   li.appendChild(moreBtn);
 
+  let moreTab = document.createElement("div");
+  moreTab.setAttribute("class", "moreTab hidden");
+  
+  let moreTab_edit = document.createElement("div");
+  moreTab_edit.setAttribute("onclick", "editTodo()");
+  moreTab_edit.textContent = "Edit";
+  moreTab.appendChild(moreTab_edit);
+  
+  let moreTab_delete = document.createElement("div");
+  moreTab_delete.setAttribute("onclick", "deleteTodo()");
+  moreTab_delete.textContent = "Delete";
+  moreTab.appendChild(moreTab_delete);
+
+  moreBtn.appendChild(moreTab);
+  
   return li;
 }
 
@@ -156,7 +171,29 @@ function showMore(li){
 }
 
 function hiddenMore(li){
-  li.childNodes[1].classList.add('hidden');
+  if(moreFlag != li.childNodes[1]){
+    li.childNodes[1].classList.add('hidden');
+  }
+}
+
+let moreFlag = false;
+function showMoreTab(btn){
+  if(!moreFlag){
+    moreFlag = btn;
+    btn.childNodes[1].classList.remove('hidden');
+  }else{
+    moreFlag.classList.add('hidden');
+    moreFlag.childNodes[1].classList.add('hidden');
+
+    if(moreFlag != btn){
+      moreFlag = btn;
+      btn.childNodes[1].classList.remove('hidden');
+    } else{
+      moreFlag = false;
+    }
+  }
+
+  
 }
 
 function doneTodo(btn){
