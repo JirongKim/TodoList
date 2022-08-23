@@ -31,4 +31,11 @@ body {
   padding: 30px;
   bottom: 10px;
   right: 10px;
+}
+
+.weather {
+  position: absolute;
+  padding: 30px;
+  top: 5px;
+  right: 10px;
 }/*# sourceMappingURL=style.css.map */
