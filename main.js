@@ -152,12 +152,12 @@ function newTodoList(todo){
   moreTab.setAttribute("class", "moreTab hidden");
   
   let moreTab_edit = document.createElement("div");
-  moreTab_edit.setAttribute("onclick", "editTodo()");
+  moreTab_edit.setAttribute("onclick", "editTodo(this)");
   moreTab_edit.textContent = "Edit";
   moreTab.appendChild(moreTab_edit);
   
   let moreTab_delete = document.createElement("div");
-  moreTab_delete.setAttribute("onclick", "deleteTodo()");
+  moreTab_delete.setAttribute("onclick", "deleteTodo(this)");
   moreTab_delete.textContent = "Delete";
   moreTab.appendChild(moreTab_delete);
 
@@ -206,4 +206,16 @@ function doneTodo(btn){
     todoArr[idx][1] = true;
   }
   localStorage.setItem("todoList", JSON.stringify(todoArr));
+}
+
+function deleteTodo(div){
+  let li = div.parentNode.parentNode.parentNode;
+  let idx = li.getAttribute("number");
+  todoArr.splice(idx, 1);
+  li.remove();
+  localStorage.setItem("todoList", JSON.stringify(todoArr));
+}
+
+function editTodo(div){
+  div.parentNode.parentNode.parentNode.getAttribute("number");
 }
