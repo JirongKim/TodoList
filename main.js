@@ -1,8 +1,22 @@
+let todoInput = document.querySelector("#todoInput");
+let todoList = document.querySelector(".todoList");
+let todoListAppend = document.querySelector(".todoList ul");
+
 let username = localStorage.getItem("username");
 if (!username) {
   showFirstUse();
 } else {
   showContainer();
+}
+
+let localStorage_todoList = localStorage.getItem("todoList");
+if(localStorage_todoList) {
+  let array = JSON.parse(localStorage_todoList);
+  array.forEach((todo)=>{
+    let li = document.createElement("li");
+    li.textContent = todo;
+    todoListAppend.appendChild(li);
+  })
 }
 
 let usernameInput = document.querySelector("#usernameInput");
@@ -85,10 +99,6 @@ function showTodoList(){
   }
 }
 
-let todoInput = document.querySelector("#todoInput");
-let todoList = document.querySelector(".todoList");
-let todoListAppend = document.querySelector(".todoList ul");
-
 todoInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     let todo = todoInput.value;
@@ -98,6 +108,13 @@ todoInput.addEventListener("keydown", (e) => {
     li.textContent = todo;
     todoListAppend.appendChild(li);
     todoInput.value = "";
+    
+    localStorage_todoList = localStorage.getItem("todoList");
+    if(!localStorage_todoList) { localStorage_todoList = []; }
+    else { localStorage_todoList = JSON.parse(localStorage_todoList); }
+
+    localStorage_todoList.push(todo);
+    localStorage.setItem("todoList", JSON.stringify(localStorage_todoList));
   } else if(e.code === "Space") {
     e.preventDefault();
   }
