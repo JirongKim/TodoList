@@ -47,6 +47,33 @@ body {
 }
 
 .todoList {
+  width: 40vw;
   border: solid 1px black;
   background-color: #eee;
+}
+.todoList ul {
+  list-style-type: none;
+  margin: 16px;
+  padding: 5px;
+}
+
+.todoElement {
+  display: flex;
+  justify-content: space-between;
+}
+.todoElement .more {
+  border: 0px;
+  padding: 1px;
+}
+.todoElement .todoList-checkBoxGroup {
+  display: flex;
+  align-items: center;
+}
+.todoElement .todoList-checkBoxGroup .check {
+  width: 10px;
+  height: 10px;
+  padding: 0px;
+  margin: 3px;
+  border: solid black 1px;
+  border-radius: 1px;
 }/*# sourceMappingURL=style.css.map */

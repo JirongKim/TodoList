@@ -13,8 +13,7 @@ let localStorage_todoList = localStorage.getItem("todoList");
 if(localStorage_todoList) {
   let array = JSON.parse(localStorage_todoList);
   array.forEach((todo)=>{
-    let li = document.createElement("li");
-    li.textContent = todo;
+    let li = newTodoList(todo);
     todoListAppend.appendChild(li);
   })
 }
@@ -105,8 +104,7 @@ todoInput.addEventListener("keydown", (e) => {
     let todo = todoInput.value;
     if(todo === "" || todo === null || todo === undefined) { return; }
 
-    let li = document.createElement("li");
-    li.textContent = todo;
+    let li = newTodoList(todo);
     todoListAppend.appendChild(li);
     todoInput.value = "";
     
@@ -120,3 +118,40 @@ todoInput.addEventListener("keydown", (e) => {
     e.preventDefault();
   }
 });
+
+function newTodoList(todo){
+  let li = document.createElement("li");
+  li.setAttribute("class", "todoElement");
+  li.setAttribute("onmouseover", "showMore(this)");
+  li.setAttribute("onmouseout", "hiddenMore(this)");
+
+  let group = document.createElement("div");
+  group.setAttribute("class", "todoList-checkBoxGroup")
+
+  let checkBtn = document.createElement("button");
+  checkBtn.setAttribute("onclick", "alert('check')");
+  checkBtn.setAttribute("class", "check");
+  group.appendChild(checkBtn);
+
+  let content = document.createElement("span");
+  content.textContent = todo;
+  group.appendChild(content);
+
+  li.appendChild(group);
+
+  let moreBtn = document.createElement("button");
+  moreBtn.setAttribute("onclick", "alert('hi')");
+  moreBtn.setAttribute("class", "more hidden");
+  moreBtn.textContent = "***";
+  li.appendChild(moreBtn);
+
+  return li;
+}
+
+function showMore(li){
+  li.childNodes[1].classList.remove('hidden');
+}
+
+function hiddenMore(li){
+  li.childNodes[1].classList.add('hidden');
+}
