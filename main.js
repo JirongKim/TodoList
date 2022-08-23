@@ -9,11 +9,17 @@ if (!username) {
   showContainer();
 }
 
+let todoArr = [];
 let localStorage_todoList = localStorage.getItem("todoList");
 if(localStorage_todoList) {
   let array = JSON.parse(localStorage_todoList);
-  array.forEach((todo)=>{
-    let li = newTodoList(todo);
+  array.forEach((todo, i)=>{
+    todoArr.push(todo);
+    let li = newTodoList(todo[0]);
+    if(todo[1] === true) {
+      li.childNodes[0].setAttribute("class", "todoList-checkBoxGroup checked");
+    }
+    li.setAttribute("number", i);
     todoListAppend.appendChild(li);
   })
 }
@@ -107,13 +113,10 @@ todoInput.addEventListener("keydown", (e) => {
     let li = newTodoList(todo);
     todoListAppend.appendChild(li);
     todoInput.value = "";
-    
-    localStorage_todoList = localStorage.getItem("todoList");
-    if(!localStorage_todoList) { localStorage_todoList = []; }
-    else { localStorage_todoList = JSON.parse(localStorage_todoList); }
 
-    localStorage_todoList.push(todo);
-    localStorage.setItem("todoList", JSON.stringify(localStorage_todoList));
+    let arr = [todo, false]; // todo, done?
+    todoArr.push(arr);
+    localStorage.setItem("todoList", JSON.stringify(todoArr));
   } else if(e.code === "Space") {
     e.preventDefault();
   }
@@ -129,8 +132,8 @@ function newTodoList(todo){
   group.setAttribute("class", "todoList-checkBoxGroup")
 
   let checkBtn = document.createElement("button");
-  checkBtn.setAttribute("onclick", "alert('check')");
-  checkBtn.setAttribute("class", "check");
+  checkBtn.setAttribute("onclick", "doneTodo(this)");
+  checkBtn.setAttribute("class", "checkBox");
   group.appendChild(checkBtn);
 
   let content = document.createElement("span");
@@ -154,4 +157,16 @@ function showMore(li){
 
 function hiddenMore(li){
   li.childNodes[1].classList.add('hidden');
+}
+
+function doneTodo(btn){
+  let idx = btn.parentNode.parentNode.getAttribute("number");
+  if(btn.parentNode.classList.contains('checked')){
+    btn.parentNode.classList.remove('checked');
+    todoArr[idx][1] = false;
+  } else{
+    btn.parentNode.classList.add('checked');
+    todoArr[idx][1] = true;
+  }
+  localStorage.setItem("todoList", JSON.stringify(todoArr));
 }
