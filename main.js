@@ -27,3 +27,12 @@ function showFirstUse(visiable = true){
     document.querySelector(".firstUse").classList.remove("hidden");
   }
 }
+
+setInterval(function(){
+  let date = new Date();
+  let hours = date.getHours().toString().padStart(2, '0');
+  let minutes = date.getMinutes().toString().padStart(2, '0');
+
+  document.querySelector("#hours").innerHTML = hours;
+  document.querySelector("#minutes").innerHTML = minutes;
+}, 1000)
