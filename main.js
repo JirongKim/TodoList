@@ -76,15 +76,16 @@ function getLocationWeather() {
 }
 
 function getWeather(lat, lon){
-  let key = `1eef797b323a1e22bb5dfee486c644f8`
-  let url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${key}`;
+  let key = `1eef797b323a1e22bb5dfee486c644f8`;
+  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`;
+
 
   fetch(url)
   .then((response) => response.json())
   .then((data) => {
-    console.log(data)
-    document.querySelector("#temperature").innerHTML = data.current.temp;
-    document.querySelector("location").innerHTML = data.timezone;
+    console.log(data);
+    document.querySelector("#temperature").innerHTML = data.main.temp;
+    document.querySelector("#location").innerHTML = data.name;
   });
 }
 
