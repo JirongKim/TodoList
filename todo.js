@@ -7,7 +7,6 @@ let btnShowTodo = document.querySelector("#btnShowTodo");
 
 btnShowTodo.addEventListener("click", showTodoList);
 function showTodoList(){
-  console.log('hi');
   if(todoList.classList.contains('hidden')){
     todoList.classList.remove('hidden');
   }
@@ -18,6 +17,7 @@ function showTodoList(){
 
 let todoArr = [];
 let localStorage_todoList = localStorage.getItem("todoList");
+let numberIdx = 0;
 if(localStorage_todoList) {
   let array = JSON.parse(localStorage_todoList);
   array.forEach((todo, i)=>{
@@ -26,7 +26,6 @@ if(localStorage_todoList) {
     if(todo[1] === true) {
       li.childNodes[0].setAttribute("class", "todoList-checkBoxGroup checked");
     }
-    li.setAttribute("number", i);
     todoListAppend.appendChild(li);
   })
 }
@@ -53,6 +52,7 @@ let mouseOver;
 function newTodoList(todo){
   let li = document.createElement("li");
   li.setAttribute("class", "todoElement");
+  li.setAttribute("number", numberIdx++);
   li.addEventListener("mouseover", function(e) { mouseOver = e.currentTarget; showMore(e.currentTarget); });
   li.addEventListener("mouseout", function() { hiddenMore(moreFlag, mouseOver); });
 
@@ -106,7 +106,6 @@ function showMoreTab(btn){
 
     if(moreFlag != btn){
       moreFlag = btn;
-      console.log(btn);
       btn.childNodes[1].classList.remove('hidden');
     } else{
       moreFlag = false;
@@ -129,6 +128,7 @@ function doneTodo(btn){
 function deleteTodo(div){
   let li = div.parentNode.parentNode.parentNode;
   let idx = li.getAttribute("number");
+  console.log(idx);
   todoArr.splice(idx, 1);
   li.remove();
   localStorage.setItem("todoList", JSON.stringify(todoArr));
@@ -136,6 +136,7 @@ function deleteTodo(div){
 
 function editTodo(div){
   let li = div.parentNode.parentNode.parentNode;
+  console.log(div);
   let idx = li.getAttribute("number");
 
   let tagE = li.childNodes[0].childNodes[1];
