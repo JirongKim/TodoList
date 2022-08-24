@@ -11,12 +11,11 @@ export function showFirstUse(visiable = true) {
   }
 }
 
-function showMore(li){
-  console.log('hzz');
+export function showMore(li){
   li.childNodes[1].classList.remove('hidden');
 }
 
-function hiddenMore(li){
+export function hiddenMore(moreFlag = false, li){
   if(moreFlag != li.childNodes[1]){
     li.childNodes[1].classList.add('hidden');
   }

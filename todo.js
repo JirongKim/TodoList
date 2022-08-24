@@ -1,7 +1,11 @@
+import { showMore, hiddenMore } from './hideUtil.js'
+
 let todoInput = document.querySelector("#todoInput");
 let todoList = document.querySelector(".todoList");
 let todoListAppend = document.querySelector(".todoList ul");
+let btnShowTodo = document.querySelector("#btnShowTodo");
 
+btnShowTodo.addEventListener("click", showTodoList);
 function showTodoList(){
   console.log('hi');
   if(todoList.classList.contains('hidden')){
@@ -45,17 +49,18 @@ todoInput.addEventListener("keydown", (e) => {
 });
 
 
+let mouseOver;
 function newTodoList(todo){
   let li = document.createElement("li");
   li.setAttribute("class", "todoElement");
-  li.setAttribute("onmouseover", "showMore(this)");
-  li.setAttribute("onmouseout", "hiddenMore(this)");
+  li.addEventListener("mouseover", function(e) { mouseOver = e.currentTarget; showMore(e.currentTarget); });
+  li.addEventListener("mouseout", function() { hiddenMore(moreFlag, mouseOver); });
 
   let group = document.createElement("div");
   group.setAttribute("class", "todoList-checkBoxGroup")
 
   let checkBtn = document.createElement("button");
-  checkBtn.setAttribute("onclick", "doneTodo(this)");
+  checkBtn.addEventListener("click", function(e) { doneTodo(e.target); });
   checkBtn.setAttribute("class", "checkBox");
   group.appendChild(checkBtn);
 
@@ -66,7 +71,7 @@ function newTodoList(todo){
   li.appendChild(group);
 
   let moreBtn = document.createElement("button");
-  moreBtn.setAttribute("onclick", "showMoreTab(this)");
+  moreBtn.addEventListener('click', function(e) { showMoreTab(e.currentTarget); })
   moreBtn.setAttribute("class", "more hidden");
   moreBtn.textContent = "***";
   li.appendChild(moreBtn);
@@ -75,12 +80,12 @@ function newTodoList(todo){
   moreTab.setAttribute("class", "moreTab hidden");
   
   let moreTab_edit = document.createElement("div");
-  moreTab_edit.setAttribute("onclick", "editTodo(this)");
+  moreTab_edit.addEventListener('click', function(e) { editTodo(e.target); })
   moreTab_edit.textContent = "Edit";
   moreTab.appendChild(moreTab_edit);
   
   let moreTab_delete = document.createElement("div");
-  moreTab_delete.setAttribute("onclick", "deleteTodo(this)");
+  moreTab_delete.addEventListener('click', function(e) { deleteTodo(e.target); })
   moreTab_delete.textContent = "Delete";
   moreTab.appendChild(moreTab_delete);
 
@@ -101,6 +106,7 @@ function showMoreTab(btn){
 
     if(moreFlag != btn){
       moreFlag = btn;
+      console.log(btn);
       btn.childNodes[1].classList.remove('hidden');
     } else{
       moreFlag = false;
